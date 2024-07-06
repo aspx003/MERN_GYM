@@ -1,15 +1,10 @@
-const Workout = require("../models/workoutModel.js");
+const Workout = require("../models/workoutModel");
 const mongoose = require("mongoose");
 
 // GET all workouts
 const getAllWorkouts = async (req, res) => {
-  try {
-    // sort in descending order
-    const workouts = await Workout.find({}).sort({ createdAt: -1 });
-    res.status(200).json(workouts);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
+  const workouts = await Workout.find({}).sort({ createdAt: -1 });
+  res.status(200).json(workouts);
 };
 
 // GET a single workout
@@ -56,7 +51,7 @@ const updateWorkout = async (req, res) => {
 
   if (!workout) {
     return res
-      .status(404)
+      .status(400)
       .json({ error: "The requested workout was not found" });
   }
 
